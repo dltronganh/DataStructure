@@ -1,0 +1,57 @@
+#include<iostream>
+#include<math.h>
+
+using namespace std;
+
+ func(float a, float b, float c, float *x1, float*x2);
+
+int main(){
+	float a, b, c;
+	float x1, x2;
+	cout << "Nhap a, b, c: ";
+	cin >> a >> b >> c;
+//	func(a, b, c, &x1, &x2);
+
+//	printf("%.3f  %.3f \n", x1, x2);
+	
+	switch(func(a, b, c, &x1, &x2)){
+		case 0:{
+			cout << "No solution.";
+			break;
+		}
+		case 1:{
+                        cout << "Double solution.";
+                        printf("x1 = x2 = %.3f\n", x2);
+			break;
+                }
+		printf("%.3f  %.3f \n", x1, x2);
+
+	}
+}
+
+int func(float a, float b, float c, float *x1, float *x2){
+
+	float denta = (b)*(b) - 4*(a)*(c);
+	//cout << "denta: " << denta << endl;
+	if (a == 0){
+		if (b == 0){
+			if (c != 0) return 0; //no solution
+			else if (c == 0) return 4; //any solution
+		}
+		else if (b != 0){
+		 *x1 =  -c/b;
+		return 3; //have 1 solution
+		}
+	}
+	else if (denta < 0) {return 0;}
+	else if (denta == 0) {
+		*x1 = (-b/(2*a));
+		*x2 = *x1;
+		return 1; //double solution
+	}
+	else if (denta > 0){
+		*x1 = (-b + sqrt(denta))/(2*a);
+		*x2 = (-b - sqrt(denta))/(2*a);
+		return 2; //two solution
+	}
+}
